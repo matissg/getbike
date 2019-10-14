@@ -17,7 +17,8 @@ RSpec.describe Ride, type: :model do
   end
 
   it "is not valid without an employee" do
-    subject.employee_id = nil
+    subject.start_at = 2.days.from_now
+    subject.end_at = 1.day.from_now
     expect(subject).to_not be_valid
   end
 

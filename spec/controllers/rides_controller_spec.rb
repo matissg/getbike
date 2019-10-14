@@ -23,7 +23,7 @@ RSpec.describe RidesController, type: :controller do
     } }
 
   let(:invalid_attributes) { {
-    employee_id: nil,
+    employee_id: employee.id,
     bike_id: nil,
     starts_ends: "#{2.day.from_now} - #{1.days.from_now}"
     } }
