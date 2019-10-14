@@ -1,0 +1,57 @@
+<h2><%= employee.name%> rides</h2>
+
+<div class="row">
+  <div class="col-12">
+    <%= render 'shared/back' %>
+    <% if !employee.discarded? %>
+      <%= link_to new_ride_path(employee_id: employee.id, name: employee.name),
+          class: "btn btn-sm btn-outline-success" do %>
+          <i class="fa fa-biking"></i> New Ride
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Period</th>
+      <th>Total time</th>
+      <th>Bike</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @rides.each do |ride|  %>
+    <% status = ride.end_at < Time.current ? 'ended' : ( ride.start_at > Time.current ? 'booked' : 'now' ) %>
+    <tr>
+      <td><%= ride.period %></td>
+      <td><%= ride.total_time %></td>
+      <td><%= ride.bike.number %></td>
+      <td><%= status.capitalize %></td>
+      <td>
+        <% if status == 'booked' %>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+                  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            More
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <%= link_to edit_ride_path(ride, employee_id: ride.employee.id), class: "dropdown-item" do %>
+                <i class="fa fa-edit"></i> Edit Ride
+            <% end %>
+            <%= link_to ride, method: :delete, data: {
+                  confirm: "Are you sure to remove ride for #{ride.start_at.strftime("%d.%m.%Y %H:%M")}?"
+                }, class: "dropdown-item" do %>
+                <i class="fa fa-trash"></i> Delete Ride
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+  <%== pagy_bootstrap_nav(@pagy) %>

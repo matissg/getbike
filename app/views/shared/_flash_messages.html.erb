@@ -1,0 +1,6 @@
+<div role="alert" id="flash">
+  <% flash.each do |message_type, message| %>
+    <%= content_tag(:div, sanitize(message.to_s),
+                   class: "alert alert-#{message_type}") %>
+  <% end %>
+</div>

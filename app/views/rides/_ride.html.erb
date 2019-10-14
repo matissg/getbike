@@ -1,0 +1,28 @@
+<% status = status_for(ride) %>
+<tr>
+  <td><%= ride.id %></td>
+  <td><%= ride.employee.name %></td>
+  <td><%= ride.bike.number %></td>
+  <td><%= ride.period %></td>
+  <td><%= status.capitalize %></td>
+  <td>
+    <% if status == 'booked' %>
+    <div class="dropdown">
+      <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        More
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <%= link_to edit_ride_path(ride, employee_id: ride.employee.id), class: "dropdown-item" do %>
+            <i class="fa fa-edit"></i> Edit Ride
+        <% end %>
+        <%= link_to ride, method: :delete,
+                      data: { confirm: "Are you sure to remove ride for #{ride.employee.name}?" },
+                      class: "dropdown-item" do %>
+            <i class="fa fa-trash"></i> Delete ride
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </td>
+</tr>

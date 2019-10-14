@@ -1,0 +1,19 @@
+<%= form_with model: bike do |form| %>
+<div class="row">
+  <div class="col-6">
+    <div class="form-group">
+      <label>Bike Number</label>
+      <%= form.text_field :number,
+              value: (params[:action] ==  'new' ? "bike_#{next_bike_number}" : bike.number),
+              class: "form-control" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <%= form.submit params[:action] == 'new' ? 'Create' : 'Update',
+        class: "btn btn-sm btn-outline-success" %>
+    <%= render 'shared/back' %>
+  </div>
+</div>
+<% end %>

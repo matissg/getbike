@@ -1,0 +1,6 @@
+$('#flash').replaceWith("<%= j(render 'shared/flash_messages') %>");
+$('#flash').show();
+
+setTimeout(function() {
+  $('#flash').slideUp();
+}, 5000);

@@ -1,0 +1,23 @@
+<h2>Bikes</h2>
+
+<div class="row">
+  <div class="col-12">
+    <%= link_to 'New Bike', new_bike_path, class: "btn btn-sm btn-outline-success" %>
+  </div>
+</div>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Total Rides</th>
+      <th>Latest Booking</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @bikes, collection: @bikes, as: :bike  %>
+  </tbody>
+</table>
+  <%== pagy_bootstrap_nav(@pagy) %>

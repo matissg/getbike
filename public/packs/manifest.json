@@ -1,0 +1,19 @@
+{
+  "application.js": "/packs/js/application-49ecf81f5dc0c0362c1c.js",
+  "application.js.map": "/packs/js/application-49ecf81f5dc0c0362c1c.js.map",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/packs/js/application-49ecf81f5dc0c0362c1c.js"
+      ],
+      "js.map": [
+        "/packs/js/application-49ecf81f5dc0c0362c1c.js.map"
+      ]
+    }
+  },
+  "media/webfonts/fa-solid-900.eot": "/packs/media/webfonts/fa-solid-900-8e4a6dcc.eot",
+  "media/webfonts/fa-solid-900.svg": "/packs/media/webfonts/fa-solid-900-c2801fb4.svg",
+  "media/webfonts/fa-solid-900.ttf": "/packs/media/webfonts/fa-solid-900-0bff33a5.ttf",
+  "media/webfonts/fa-solid-900.woff": "/packs/media/webfonts/fa-solid-900-333bae20.woff",
+  "media/webfonts/fa-solid-900.woff2": "/packs/media/webfonts/fa-solid-900-44d537ab.woff2"
+}

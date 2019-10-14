@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&lang=en");
+@import '~bootstrap/scss/bootstrap';
+// FontAwesome
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+
+@import url("daterangepicker/daterangepicker");
+
+
+.navbar-dark .nav-item > .nav-link.active  {
+    color:gold;
+}
+
+.daterangepicker {
+  z-index: 22500 !important;
+}

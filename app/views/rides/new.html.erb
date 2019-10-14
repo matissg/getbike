@@ -1,0 +1,10 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-12">
+      <h1>New Ride
+        <%= "for #{params[:name]}" if params[:name].present? %>
+      </h1>
+    </div>
+  </div>
+  <%= render 'form', ride: @ride %>
+</div>

@@ -1,0 +1,39 @@
+<tr>
+  <td><%= employee.name %></td>
+  <td><%= employee.rides.size %></td>
+  <td>
+    <% last_ride = employee.rides.last %>
+    <%= last_ride.present? ? "#{last_ride.period}" : 'Not booked yet'%>
+  </td>
+  <td><%= employee.discarded? ? 'Removed' : 'Active'%></td>
+  <td>
+    <% if !employee.discarded? %>
+    <div class="dropdown">
+      <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        More
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <%= link_to new_ride_path(employee_id: employee.id, name: employee.name), class: "dropdown-item" do %>
+            <i class="fa fa-biking"></i> New Ride
+        <% end %>
+        <%= link_to employee, class: "dropdown-item" do %>
+            <i class="fa fa-bookmark"></i> Bookings
+        <% end %>
+        <%= link_to edit_employee_path(employee), class: "dropdown-item" do %>
+            <i class="fa fa-edit"></i> Edit Employee
+        <% end %>
+        <%= link_to employee, method: :delete,
+                      data: { confirm: "Are you sure to delete #{employee.name}?" },
+                      class: "dropdown-item" do %>
+            <i class="fa fa-trash"></i> Delete Employee
+        <% end %>
+      </div>
+    </div>
+    <% else %>
+      <%= link_to employee, class: "dropdown-item" do %>
+          <i class="fa fa-bookmark"></i> Bookings
+      <% end %>
+    <% end %>
+  </td>
+</tr>

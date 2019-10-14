@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Getbike</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body class="container">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a class="navbar-brand" href="<%= root_path %>">getBike</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link <%= is_active_controller('employees') %>" href="<%= employees_path %>">
+              <i class="fa fa-users"></i> Employees</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%= is_active_controller('bikes') %>" href="<%= bikes_path %>">
+              <i class="fa fa-bicycle"></i> Bikes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%= is_active_controller('rides') %>" href="<%= rides_path %>">
+              <i class="fa fa-biking"></i> Rides</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <%= render 'shared/flash_messages' %>
+    <%= yield %>
+  </body>
+</html>

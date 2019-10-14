@@ -1,0 +1,36 @@
+<tr>
+  <td><%= bike.number %></td>
+  <td><%= bike.rides.size %></td>
+  <td>
+    <% last_ride = bike.rides.last %>
+    <%= last_ride.present? ? "#{last_ride.period}" : 'Not booked yet'%>
+  </td>
+  <td><%= bike.discarded? ? 'Out of service' : 'Active' %></td>
+  <td>
+    <% if !bike.discarded? %>
+    <div class="dropdown">
+      <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        More
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <%= link_to bike, class: "dropdown-item" do %>
+            <i class="fa fa-bookmark"></i> Bookings
+        <% end %>
+          <%= link_to edit_bike_path(bike), class: "dropdown-item" do %>
+              <i class="fa fa-edit"></i> Edit Bike
+          <% end %>
+          <%= link_to bike, method: :delete,
+                        data: { confirm: "Are you sure to delete #{bike.number}?" },
+                        class: "dropdown-item" do %>
+              <i class="fa fa-trash"></i> Delete Bike
+          <% end %>
+      </div>
+    </div>
+    <% else %>
+      <%= link_to bike, class: "dropdown-item" do %>
+          <i class="fa fa-bookmark"></i> Bookings
+      <% end %>
+    <% end %>
+  </td>
+</tr>
