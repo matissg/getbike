@@ -217,7 +217,7 @@ if(false) {}
 
     if (formId.startsWith("new") == true) {
       $('#ride_starts_ends').daterangepicker({
-        startDate: moment(),
+        startDate: moment().add(5, 'minutes'),
         endDate: moment().add(4, 'hours'),
         minDate: moment(),
         maxDate: moment().add(365, 'days'),
@@ -38594,4 +38594,4 @@ module.exports = function(module) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=application-49ecf81f5dc0c0362c1c.js.map
+//# sourceMappingURL=application-a00e2eeb48baff31c5e1.js.map

@@ -5,7 +5,7 @@ RSpec.describe EmployeesController, type: :controller do
   let(:employee) { Employee.create!(name: "Matiss") }
   let(:id) { employee.id }
   let(:valid_attributes) { { name: "Matiss" } }
-  let(:invalid_attributes) { { number: "" } }
+  let(:invalid_attributes) { { name: "" } }
   let(:valid_session) { {} }
 
   describe "GET #index" do
@@ -54,7 +54,7 @@ RSpec.describe EmployeesController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, xhr: true, params: {employee: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to have_http_status(422)
       end
     end
   end
@@ -66,20 +66,26 @@ RSpec.describe EmployeesController, type: :controller do
       }
 
       it "updates the requested employee" do
-        put :update, xhr: true, params: {id: employee.to_param, employee: new_attributes}, session: valid_session
+        put :update, xhr: true, params: {
+          id: employee.to_param, employee: new_attributes
+          }, session: valid_session
         employee.reload
       end
 
       it "redirects to the employee" do
-        put :update, xhr: true, params: {id: employee.to_param, employee: valid_attributes}, session: valid_session
+        put :update, xhr: true, params: {
+          id: employee.to_param, employee: valid_attributes
+          }, session: valid_session
         expect(response).to redirect_to(employees_url)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        put :update, xhr: true, params: {id: employee.to_param, employee: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        put :update, xhr: true, params: {
+          id: employee.to_param, employee: invalid_attributes
+          }, session: valid_session
+        expect(response).to have_http_status(422)
       end
     end
   end

@@ -7,7 +7,7 @@ $(document).on('turbolinks:load', function() {
       if ( formId.startsWith("new") == true ) {
 
         $('#ride_starts_ends').daterangepicker({
-          startDate: moment(),
+          startDate: moment().add(5, 'minutes'),
           endDate: moment().add(4, 'hours'),
           minDate: moment(),
           maxDate: moment().add(365, 'days'),

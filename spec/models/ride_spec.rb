@@ -5,6 +5,7 @@ RSpec.describe Ride, type: :model do
   let(:employee) { Employee.create!(name: "Matiss") }
   let(:employee_id) { employee.id }
   let(:bike) { Bike.create!(number: "bike_1") }
+  let(:bike_2) { Bike.create!(number: "bike_2") }
   let(:bike_id) { bike.id }
 
   subject { described_class.new(
@@ -46,6 +47,17 @@ RSpec.describe Ride, type: :model do
     subject.start_at = 2.days.from_now
     subject.end_at = 1.day.from_now
     expect(subject).to_not be_valid
+  end
+
+  it "is not valid if employee has other ride in same time" do
+    expect {
+      Ride.create!([
+        {employee_id: employee_id, bike_id: bike_id, start_at: 1.day.from_now, end_at: 2.days.from_now},
+        {employee_id: employee_id, bike_id: bike_2.id, start_at: 30.hours.from_now, end_at: 2.days.from_now}
+        ])
+    }.to raise_error { |error|
+      expect(error).to be_a(ActiveRecord::RecordInvalid)
+    }
   end
 
 end

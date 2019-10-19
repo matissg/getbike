@@ -10,6 +10,7 @@ class Ride < ApplicationRecord
   validate :start_is_in_future
   validate :start_is_before_end
   validate :employee_is_active
+  validate :employee_has_one_ride_at_time
   #-- Scopes -------------------------------------------------------------------
   scope :end_in_future, -> { where('end_at > ?', Time.current) }
   scope :start_in_future, -> { where('start_at > ?', Time.current) }
@@ -46,12 +47,21 @@ class Ride < ApplicationRecord
     )
   end
 
+  def validate_if_future_ride
+    errors.add(:base, "Can't delete running ride!") unless self.start_at > Time.current
+  end
+
   def employee_is_active
     errors.add(:employee_id, "must be active!") unless !self.employee.discarded?
   end
 
-  def validate_if_future_ride
-    errors.add(:base, "Can't delete running ride!") unless self.start_at > Time.current
+  def employee_has_one_ride_at_time
+    rides = self.employee.rides.start_in_future.pluck(:start_at, :end_at)
+    rides.each do |ride|
+      errors.add(:base, "Employee has ride in this time already!") && return if (
+        (ride[0]..ride[1]).overlaps?(self.start_at..self.end_at)
+      )
+    end
   end
 
 end

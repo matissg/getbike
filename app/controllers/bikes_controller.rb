@@ -34,7 +34,7 @@ class BikesController < ApplicationController
       flash[:success] = "Bike #{bike.number} was successfully created."
     else
       flash_error_for(bike)
-      render partial: 'shared/flash'
+      render partial: 'shared/flash', status: 422
     end
   end
 
@@ -45,7 +45,7 @@ class BikesController < ApplicationController
       flash[:success] = "Bike #{bike.number} was successfully updated."
     else
       flash_error_for(bike)
-      render partial: 'shared/flash'
+      render partial: 'shared/flash', status: 422
     end
   end
 

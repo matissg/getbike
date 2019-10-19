@@ -11,7 +11,7 @@ class Employee < ApplicationRecord
 
 
   private
-  
+
   def remove_future_scheduled_rides
     Ride.start_in_future.destroy_by(employee_id: self.id)
   end

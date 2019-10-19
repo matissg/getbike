@@ -55,7 +55,7 @@ RSpec.describe BikesController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, xhr: true, params: {bike: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to have_http_status(422)
       end
     end
   end
@@ -76,7 +76,7 @@ RSpec.describe BikesController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
         put :update, xhr: true, params: {id: bike.to_param, bike: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to have_http_status(422)
       end
     end
   end

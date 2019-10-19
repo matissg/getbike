@@ -25,7 +25,7 @@ class RidesController < ApplicationController
       flash[:success] = 'Ride was successfully created.'
     else
       flash_error_for(ride)
-      render partial: 'shared/flash'
+      render partial: 'shared/flash', status: 422
     end
   end
 
@@ -36,7 +36,7 @@ class RidesController < ApplicationController
       flash[:success] = 'Ride was successfully updated.'
     else
       flash_error_for(ride)
-      render partial: 'shared/flash'
+      render partial: 'shared/flash', status: 422
     end
   end
 

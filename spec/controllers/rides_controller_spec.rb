@@ -65,7 +65,8 @@ RSpec.describe RidesController, type: :controller do
       end
 
       it "redirects to the created ride" do
-        ride_2 = Ride.create! valid_attributes
+        ride_2 = Ride.create!(employee_id: employee.id, bike_id: bike.id,
+                              starts_ends: "#{4.day.from_now} - #{5.days.from_now}")
         post :create, xhr: true, params: {ride: valid_attributes}, session: valid_session
         expect(response).to redirect_to(employee_path(ride_2.employee_id))
       end
@@ -77,7 +78,7 @@ RSpec.describe RidesController, type: :controller do
       end
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, xhr: true, params: {ride: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to have_http_status(422)
       end
     end
   end
@@ -94,12 +95,17 @@ RSpec.describe RidesController, type: :controller do
         Bike.create!(number: "bike_3")
       end
       it "updates the requested ride" do
-        put :update, xhr: true, params: {id: ride.to_param, ride: new_attributes}, session: valid_session
+        put :update, xhr: true, params: {
+          id: ride.to_param, ride: new_attributes
+          }, session: valid_session
         ride.reload
       end
 
       it "redirects to the ride" do
-        put :update, xhr: true, params: {id: ride.to_param, ride: valid_attributes}, session: valid_session
+        put :update, xhr: true, params: {id: ride.to_param, ride:  {
+          employee_id: employee.id, bike_id: bike.id,
+          starts_ends: "#{4.day.from_now} - #{5.days.from_now}"
+          }}, session: valid_session
         expect(response).to redirect_to(employee_path(ride.employee_id))
       end
     end
@@ -109,8 +115,10 @@ RSpec.describe RidesController, type: :controller do
         Bike.create!(number: "bike_3")
       end
       it "returns a success response (i.e. to display the 'edit' template)" do
-        put :update, xhr: true, params: {id: ride.to_param, ride: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        put :update, xhr: true, params: {
+          id: ride.to_param, ride: invalid_attributes
+          }, session: valid_session
+        expect(response).to have_http_status(422)
       end
     end
   end

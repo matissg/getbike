@@ -32,7 +32,7 @@ class EmployeesController < ApplicationController
       flash[:success] = "#{employee.name} was added!"
     else
       flash_error_for(employee)
-      render partial: 'shared/flash'
+      render partial: 'shared/flash', status: 422
     end
   end
 
@@ -43,7 +43,7 @@ class EmployeesController < ApplicationController
       flash[:success] = "#{employee.name} was updated!"
     else
       flash_error_for(employee)
-      render partial: 'shared/flash'
+      render partial: 'shared/flash', status: 422
     end
   end
 
