@@ -3,7 +3,7 @@
     <div class="col-sm-12 col-md-6">
       <div class="form-group">
         <% if params[:source] == 'rides' %>
-          <label>Employee</label>
+          <label for="ride_employee_id">Employee</label>
           <%= form.select :employee_id, list_of_employees, {}, class: "form-control" %>
         <% elsif !params[:source].present? %>
           <%= form.hidden_field :employee_id,
@@ -11,8 +11,8 @@
         <% end %>
       </div>
       <div class="form-group">
-        <label>When you'd like to ride?</label>
-        <%= form.text_field :starts_ends, readonly: true,
+        <label for="ride_starts_ends">When you'd like to ride?</label>
+        <%= form.text_field :starts_ends,
                 value: (ride.start_at ? ride.period : nil),
                 class: "form-control" %>
       </div>

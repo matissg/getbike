@@ -6,17 +6,14 @@ class BikesController < ApplicationController
     if params[:range].present?
       render json: Bike.availability_message(params[:range]).to_json
     else
-      @pagy, @bikes = pagy(
-        Bike.with_discarded.includes(:rides).references(:rides)
-      )
+      @pagy, @bikes = pagy(Bike.with_discarded.includes(:rides).references(:rides))
     end
   end
 
   # GET /bikes/1
   def show
-    @pagy, @rides = pagy(
-      bike.rides.with_discarded.includes(:employee).references(:employees)
-    )
+    @pagy, @rides = pagy(bike.rides.with_discarded
+                             .includes(:employee).references(:employees))
   end
 
   # GET /bikes/new
@@ -66,7 +63,6 @@ class BikesController < ApplicationController
       @bike ||= Bike.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def bike_params
       params.require(:bike).permit(:number)
     end

@@ -10,8 +10,10 @@ class Employee < ApplicationRecord
   after_discard :remove_future_scheduled_rides
 
 
+  private
+  
   def remove_future_scheduled_rides
-    Ride.where(employee_id: self.id).start_in_future.destroy_all
+    Ride.start_in_future.destroy_by(employee_id: self.id)
   end
 
 end

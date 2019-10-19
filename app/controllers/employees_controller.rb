@@ -3,17 +3,15 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    @pagy, @employees = pagy(
-      Employee.with_discarded.includes(:rides).order('rides.created_at')
-                             .references(:rides)
-    )
+    @pagy, @employees = pagy(Employee.with_discarded.includes(:rides)
+                                     .order('rides.created_at')
+                                     .references(:rides))
   end
 
   # GET /employees/1
   def show
-    @pagy, @rides = pagy(
-      employee.rides.order(updated_at: :desc).includes(:bike).references(:bikes)
-    )
+    @pagy, @rides = pagy(employee.rides.order(updated_at: :desc)
+                                 .includes(:bike).references(:bikes))
   end
 
   # GET /employees/new
@@ -63,7 +61,6 @@ class EmployeesController < ApplicationController
       @employee ||= Employee.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def employee_params
       params.require(:employee).permit(:name)
     end

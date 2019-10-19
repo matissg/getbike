@@ -11,33 +11,40 @@ class Bike < ApplicationRecord
 
 
   def self.availability_message(range)
-    yes = { available: true, text: 'YES, you can get a bike!' }
-    no = { available: false, text: 'Sorry, no free bike available!' }
+    yes = { available: true, text: "YES, there's a bike for this time range!" }
+    no = { available: false, text: "NO, there isn't any free bike for this time range!" }
     first_available_for_time(range) != nil ? yes : no
   end
 
   def self.first_available_for_time(range)
-    bikes = self.booked_in_time(range)
-    bikes.any? ? self.least_used_excluding_booked(bikes) : Bike.kept.first.id
+    booked = booked_in_time(range)
+    Bike.kept.size - booked.size > 0 ? least_used_excluding(booked) : nil
   end
 
-  def self.least_used_excluding_booked(bikes)
-    Bike.kept.where.not(id: bikes).includes(:rides).map { |bike|
-      [bike.id, bike.rides.size]
-    }.sort_by { |i| i[1] }.first[0]
+  def self.next_number
+    self.any? ? self.last.number.split('_').last.to_i + 1 : ''
+  end
+
+
+  private
+
+  def self.least_used_excluding(booked)
+    Bike.kept.where.not(id: booked).includes(:rides).map { |bike|
+      [ bike.id, bike.rides.size ]
+    }.sort_by { |it| it[1] }.first[0]
   end
 
   def self.booked_in_time(range)
-    start_str, end_str = range.split(' - ')
-    from = Time.parse(start_str)
-    to = Time.parse(end_str)
+    from, to = range.split(' - ')
     Ride.end_in_future.map { |ride|
-      ride.bike_id if (ride.start_at..ride.end_at).overlaps?(from..to)
+      ride.bike_id if (ride.start_at..ride.end_at).overlaps?(
+        Time.parse(from)..Time.parse(to)
+      )
     }.compact.uniq
   end
 
   def remove_future_scheduled_rides
-    Ride.where(bike_id: self.id).start_in_future.destroy_all
+    Ride.start_in_future.destroy_by(bike_id: self.id)
   end
 
 end

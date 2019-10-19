@@ -3,9 +3,8 @@ class RidesController < ApplicationController
 
   # GET /rides
   def index
-    @pagy, @rides = pagy(
-      Ride.all.includes(:employee, :bike).references(:employees, :bikes)
-    )
+    @pagy, @rides = pagy(Ride.all.includes(:employee, :bike)
+                                 .references(:employees, :bikes))
   end
 
   # GET /rides/new
@@ -63,10 +62,7 @@ class RidesController < ApplicationController
       @free_bike ||= Bike.first_available_for_time(params[:ride][:starts_ends])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def ride_params
-      params.require(:ride).permit(:employee_id, :starts_ends).merge(
-        bike_id: free_bike
-      )
+      params.require(:ride).permit(:employee_id, :starts_ends).merge(bike_id: free_bike)
     end
 end
