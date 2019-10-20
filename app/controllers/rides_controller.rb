@@ -1,10 +1,10 @@
 class RidesController < ApplicationController
-  helper_method :employee, :ride
+  helper_method :ride
 
   # GET /rides
   def index
-    @pagy, @rides = pagy(Ride.all.includes(:employee, :bike)
-                                 .references(:employees, :bikes))
+    @pagy, @rides = pagy(Ride.includes(:employee, :bike)
+                             .references(:employees, :bikes))
   end
 
   # GET /rides/new
@@ -52,10 +52,6 @@ class RidesController < ApplicationController
 
     def ride
       @ride ||= Ride.find(params[:id])
-    end
-
-    def employee
-      @employee ||= Employee.find(params[:employee_id])
     end
 
     def free_bike

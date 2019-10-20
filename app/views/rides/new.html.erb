@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <h1>New Ride
-        <%= "for #{params[:name]}" if params[:name].present? %>
+        <%= "for #{params[:name].to_s}" if params[:name].present? %>
       </h1>
     </div>
   </div>

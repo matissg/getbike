@@ -214,45 +214,23 @@ if(false) {}
 /* WEBPACK VAR INJECTION */(function($) {$(document).on('turbolinks:load', function () {
   if ($('form.ride').is(':visible')) {
     var formId = $('form').attr('id');
-
-    if (formId.startsWith("new") == true) {
-      $('#ride_starts_ends').daterangepicker({
-        startDate: moment().add(5, 'minutes'),
-        endDate: moment().add(4, 'hours'),
-        minDate: moment(),
-        maxDate: moment().add(365, 'days'),
-        timePicker: true,
-        timePicker24Hour: true,
-        opens: "right",
-        drops: "down",
-        locale: {
-          "format": "DD.MM.YYYY HH:mm",
-          "separator": " - ",
-          "firstDay": 1
-        },
-        isInvalidDate: function isInvalidDate(date) {
-          return date.day() == 0 || date.day() == 6;
-        }
-      });
-    } else if (formId.startsWith("edit") == true) {
-      $('#ride_starts_ends').daterangepicker({
-        minDate: moment(),
-        maxDate: moment().add(365, 'days'),
-        timePicker: true,
-        timePicker24Hour: true,
-        opens: "right",
-        drops: "down",
-        locale: {
-          "format": "DD.MM.YYYY HH:mm",
-          "separator": " - ",
-          "firstDay": 1
-        },
-        isInvalidDate: function isInvalidDate(date) {
-          return date.day() == 0 || date.day() == 6;
-        }
-      });
-    }
-
+    var closestRide = $('#ride_starts_ends').data('closest');
+    $('#ride_starts_ends').daterangepicker({
+      minDate: closestRide.split(',')[0],
+      maxDate: moment().add(365, 'days'),
+      timePicker: true,
+      timePicker24Hour: true,
+      opens: "right",
+      drops: "down",
+      locale: {
+        "format": "DD.MM.YYYY HH:mm",
+        "separator": " - ",
+        "firstDay": 1
+      },
+      isInvalidDate: function isInvalidDate(date) {
+        return date.day() == 0 || date.day() == 6;
+      }
+    });
     $('#ride_starts_ends').keydown(function (event) {
       event.preventDefault();
       return false;
@@ -38594,4 +38572,4 @@ module.exports = function(module) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=application-a00e2eeb48baff31c5e1.js.map
+//# sourceMappingURL=application-8763e9af56d665b15d08.js.map

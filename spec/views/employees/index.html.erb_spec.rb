@@ -1,21 +1,13 @@
-require 'rails_helper'
 =begin
+require 'rails_helper'
+
 RSpec.describe "employees/index", type: :view do
 
-  before do
-    assign(:employees, Employee.create!(
-        [ { name: 'Matiss' },
-          { name: 'John' },
-          { name: 'Ann' } ]
-      ) )
-  end
-
-  def pagy(collection, vars={})
-  end
-
   it "renders a list of employees" do
+    assign(:employees, Employee.create!(name: 'John'))
     render
-    assert_select "tr>td", :text => "John".to_s, :count => 2
+    expect(rendered).to match /John/
   end
+
 end
 =end

@@ -1,5 +1,5 @@
 class Ride < ApplicationRecord
-  include Discard::Model, ActionView::Helpers::DateHelper
+  include ActionView::Helpers::DateHelper
 
   attr_accessor :starts_ends
   #-- Associations -------------------------------------------------------------
@@ -9,6 +9,7 @@ class Ride < ApplicationRecord
   validates :start_at, :end_at, presence: true
   validate :start_is_in_future
   validate :start_is_before_end
+  validate :is_in_weekdays
   validate :employee_is_active
   validate :employee_has_one_ride_at_time
   #-- Scopes -------------------------------------------------------------------
@@ -44,6 +45,13 @@ class Ride < ApplicationRecord
   def start_is_before_end
     errors.add(:start_at, "must be before end_at!") unless (
       start_at != nil && end_at != nil && start_at < end_at
+    )
+  end
+
+  def is_in_weekdays
+    errors.add(:base, "Ride must be in weekdays!") unless (
+      start_at != nil && end_at != nil &&
+      [0,6].exclude?(start_at.wday) && [0,6].exclude?(end_at.wday)
     )
   end
 

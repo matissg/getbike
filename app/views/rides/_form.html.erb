@@ -12,9 +12,10 @@
       </div>
       <div class="form-group">
         <label for="ride_starts_ends">When you'd like to ride?</label>
+        <% closest = closest_ride_time %>
         <%= form.text_field :starts_ends,
-                value: (ride.start_at ? ride.period : nil),
-                class: "form-control" %>
+                value: (ride.start_at ? ride.period : closest),
+                class: "form-control", data: {closest: closest} %>
       </div>
       <div class="form-group">
         <label>Availability</label>

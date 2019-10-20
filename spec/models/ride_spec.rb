@@ -49,6 +49,13 @@ RSpec.describe Ride, type: :model do
     expect(subject).to_not be_valid
   end
 
+  it "is not valid if in weekends" do
+    start = Time.current.end_of_week(:sunday)
+    subject.start_at = start + 8.hours
+    subject.end_at = start + 12.hours
+    expect(subject).to_not be_valid
+  end
+
   it "is not valid if employee has other ride in same time" do
     expect {
       Ride.create!([

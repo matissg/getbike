@@ -12,8 +12,7 @@ class BikesController < ApplicationController
 
   # GET /bikes/1
   def show
-    @pagy, @rides = pagy(bike.rides.with_discarded
-                             .includes(:employee).references(:employees))
+    @pagy, @rides = pagy(bike.rides.includes(:employee).references(:employees))
   end
 
   # GET /bikes/new
