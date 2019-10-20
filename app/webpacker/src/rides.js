@@ -2,8 +2,6 @@ $(document).on('turbolinks:load', function() {
 
   if ($('form.ride').is(':visible')) {
 
-    var formId = $('form').attr('id');
-
     var closestRide = $('#ride_starts_ends').data('closest');
     $('#ride_starts_ends').daterangepicker({
       minDate: closestRide.split(',')[0],

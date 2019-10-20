@@ -213,7 +213,6 @@ if(false) {}
 
 /* WEBPACK VAR INJECTION */(function($) {$(document).on('turbolinks:load', function () {
   if ($('form.ride').is(':visible')) {
-    var formId = $('form').attr('id');
     var closestRide = $('#ride_starts_ends').data('closest');
     $('#ride_starts_ends').daterangepicker({
       minDate: closestRide.split(',')[0],
@@ -38572,4 +38571,4 @@ module.exports = function(module) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=application-8763e9af56d665b15d08.js.map
+//# sourceMappingURL=application-1d72e212e69a27ae794a.js.map
